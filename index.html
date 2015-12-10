@@ -1,9 +1,158 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-  <head>
-  <meta http-equiv="Refresh" content="5;url=AlarmClockV2.html">
-  </head>
-  <body>
-  <h1>loading...<h1></h1>
-  </body>
+        <head>
+            <title>Matt's Photon Control</title>
+			<style>
+			table, th, td {
+			border-collapse: collapse;
+			border: 1px solid black;
+			}
+			</style>
+            <script type="text/javascript">
+		
+
+                //Stores ID and token
+                function store() {
+                    localStorage.setItem("my_ID", document.getElementById("ID").value);
+                    localStorage.setItem("my_access", document.getElementById("access").value);
+					}
+                
+                //Autofill
+                function fill(){
+                    document.getElementById("ID").value = localStorage.my_ID;
+                    document.getElementById("access").value = localStorage.my_access;
+					document.getElementById("access1").value = localStorage.my_access;
+                
+				}
+				
+				//Sends Form Data
+				function send() {
+				document.getElementById("comms").action = 'https://api.particle.io/v1/devices/'+document.all.ID.value+'/toggle';
+				}
+				//Sends Back Read Data
+				function disp(){
+				var req;
+				if(window.XMLHttpRequest){
+					req = new XMLHttpRequest();
+				}
+				req.onreadystatechange = function(){
+					if (req.readyState == 4 && req.status == 200){
+					var myjsonObject = JSON.parse(req.responseText);
+					document.getElementById("write").innerHTML = myjsonObject.result;
+					}
+				}
+				req.open("GET", 'https://api.particle.io/v1/devices/380030001047343432313031/read?access_token=9649b85081aa58fc4d391865d4a261f1cd5346d8', true);
+				req.send(null);
+				}
+				
+				
+				
+				
+			
+				
+            </script>
+            
+        </head>
+        
+        <body onload="fill()">
+            <h1 style="text-align:center">M&M Control Panel</h1>
+            
+           
+            <br><br>
+            <button id="store" onclick="store()">Store Info</button>
+            <br><br>
+            <button id="filler" onclick="fill()">Last Photon</button>
+            <br><br>
+            <input id="ID" name="ID" value="380030001047343432313031" placeholder="Enter Device ID">
+			<!-- 380030001047343432313031
+			 9649b85081aa58fc4d391865d4a261f1cd5346d8 --> 
+			<form id="comms" method="post" target="hidden" onsubmit="document.comms.args.value"  >
+			<input id="access"name="access_token" value="" placeholder="Access Token">
+
+			<br><br>
+			<input id="args" style="display:none" name="args" value="" placeholder="Enter Command Here">
+            <input  style="display:none"type="submit" onclick="send()"  value="Send" >
+			<br></br>
+			
+			
+		<table style="border: 1px solid black; border-collapse:collapse;" >
+			<tr>
+				<th>Pin</th>
+				<th>On</th>
+				<th>Off</th>
+				<th>Read</th>
+			</tr>
+			<tr>
+			<td>D0</td>
+			<td><input type="submit" onclick="{getElementById('args').value='d0-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='d0-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='d0-read'; send()}" value="Read"> </td>
+			</tr>
+			<tr>
+			<td>D1</td>
+			<td><input type="submit" onclick="{getElementById('args').value='d1-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='d1-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='d1-read'; send()}" value="Read"> </td>
+			</tr>
+			<tr>
+			<td>D2</td>
+			<td><input type="submit" onclick="{getElementById('args').value='d2-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='d2-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='d2-read'; send()}" value="Read"> </td>
+			</tr>
+			<tr>
+			<td>D3</td>
+			<td><input type="submit" onclick="{getElementById('args').value='d3-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='d3-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='d3-read'; send()}" value="Read"> </td>
+			</tr>
+			<tr>
+			<td>D4</td>
+			<td><input type="submit" onclick="{getElementById('args').value='d4-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='d4-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='d4-read'; send()}" value="Read"> </td>
+			</tr>
+			<tr>
+			<td>D5</td>
+			<td><input type="submit" onclick="{getElementById('args').value='d5-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='d5-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='d5-read'; send()}" value="Read"> </td>
+			</tr>
+			<tr>
+			<td>D6</td>
+			<td><input type="submit" onclick="{getElementById('args').value='d6-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='d6-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='d6-read'; send()}" value="Read"> </td>
+			</tr>
+			<tr>
+			<td>D7</td>
+			<td><input type="submit" onclick="{getElementById('args').value='d7-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='d7-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='d7-read'; send()}" value="Read"> </td>
+			</tr>
+			<td>A5</td>
+			<td><input type="submit" onclick="{getElementById('args').value='a5-send-255'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='a5-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='a5-read'; send()}" value="Read"> </td>
+			</tr>
+			<td>A0</td>
+			<td><input type="submit" onclick="{getElementById('args').value='a0-send-1'; send()}" value="On"></td>
+			<td><input type="submit" onclick="{getElementById('args').value='a0-send-0'; send()}" value="Off"> </td>
+			<td><input type="submit" onclick="{getElementById('args').value='a0-read'; send()}" value="Read"> </td>
+			</tr>
+			
+		</table>
+			
+			</form>
+			<h1>Pin Reading</h2>
+			<iframe  style="display:none"  id="hidden" name="hidden" onload="disp()"></iframe>
+
+			
+			
+			
+            
+            
+            
+            <p id="write" name="write"></p>
+        </body>
 </html>
